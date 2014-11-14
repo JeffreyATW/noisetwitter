@@ -7,7 +7,6 @@ A sample Angular/Rails app made for the [Front-end Web Development](https://www.
 Make sure you have [Git](http://git-scm.com/) and [Ruby](https://www.ruby-lang.org/en/) installed. If these two commands give you version numbers, you're set:
 
     git --version
-
     ruby -v
 
 If those commands work fine, then download this repository:
