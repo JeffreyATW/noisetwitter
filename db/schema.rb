@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141114055446) do
+ActiveRecord::Schema.define(version: 20141114062617) do
 
   create_table "tweets", force: true do |t|
-    t.integer  "author_id"
     t.string   "content"
     t.boolean  "favorited"
     t.boolean  "retweeted"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "author_url"
+    t.string   "author_username"
+    t.string   "author_image"
   end
 
 end
