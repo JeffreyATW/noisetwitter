@@ -19,6 +19,10 @@ Then install and run [Bundler](http://bundler.io/):
     gem install bundler
     bundle
 
+Finally, set up your local database:
+
+    rake db:migrate db:seed
+
 ## Running
 
     rails s
