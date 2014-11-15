@@ -22,7 +22,7 @@ angular.module('NoiseTwitter').config(function ($routeProvider) {
   $scope.tweets = tweets.data;
 
   $scope.addTweet = function () {
-    $http.post('/tweets', {content: $scope.tweetContent}).success(function (data) {
+    $http.post('/tweets.json', {tweet: {content: $scope.tweetContent}}).success(function (data) {
       $scope.tweets.unshift(data);
     })
   };
