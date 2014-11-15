@@ -1,38 +1,30 @@
 angular.module('NoiseTwitter', ['ngRoute']);
 
 angular.module('NoiseTwitter').config(function ($routeProvider) {
-  $routeProvider.when('tweets/:tweet_id', {
+  $routeProvider.when('/tweets/:tweet_id', {
     controller: 'TweetController',
-    template: 'tweet.html',
+    templateUrl: 'tweet.html',
     resolve: {
       tweet: function ($http, $route) {
-        return $http.get('/tweets/' + $route.current.params.tweet_id);
+        return $http.get('/tweets/' + $route.current.params.tweet_id + '.json');
       }
     }
   }).otherwise({
     controller: 'MainController',
-    template: 'main.html',
+    templateUrl: 'main.html',
     resolve: {
       tweets: function ($http) {
         return $http.get('/tweets.json')
       }
     }
   })
-}).controller('MainController', function ($scope) {
-  $scope.tweets = [
-    {
-      content: 'You give love a bad name.'
-    },
-    {
-      content: 'Old McDonald had a farm.'
-    },
-    {
-      content: "I'm a little teapot, short and stout."
-    }
-  ];
+}).controller('MainController', function ($scope, $http, tweets) {
+  $scope.tweets = tweets.data;
 
   $scope.addTweet = function () {
-    $scope.tweets.unshift({content: $scope.tweetContent});
+    $http.post('/tweets', {content: $scope.tweetContent}).success(function (data) {
+      $scope.tweets.unshift(data);
+    })
   };
 
   $scope.favorite = function (tweet) {
@@ -51,4 +43,6 @@ angular.module('NoiseTwitter').config(function ($routeProvider) {
   $scope.tweetContentInvalid = function () {
     return $scope.tweetContent.length === 0 || $scope.remainingCharacters() < 0;
   }
-});
+}).controller('TweetController', function ($scope, tweet) {
+  $scope.tweet = tweet.data;
+})
