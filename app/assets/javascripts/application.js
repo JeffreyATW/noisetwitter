@@ -29,10 +29,12 @@ angular.module('NoiseTwitter').config(function ($routeProvider) {
 
   $scope.favorite = function (tweet) {
     tweet.favorited = !tweet.favorited;
+    $http.put('/tweets/' + tweet.id + '.json', {favorited: tweet.favorited});
   }
 
   $scope.retweet = function (tweet) {
     tweet.retweeted = !tweet.retweeted;
+    $http.put('/tweets/' + tweet.id + '.json', {retweeted: tweet.retweeted});
   }
 
   $scope.tweetContent = "";
