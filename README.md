@@ -19,6 +19,10 @@ Then install and run [Bundler](http://bundler.io/):
     gem install bundler
     bundle
 
+If RubyGems cannot install due to lack of privileges, add a `sudo` to the beginning:
+
+    sudo gem install bundler
+
 Finally, set up your local database:
 
     rake db:migrate db:seed
