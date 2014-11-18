@@ -26,3 +26,5 @@ Finally, set up your local database:
 ## Running
 
     rails s
+
+Then access http://localhost:3000 in your browser and you should see the app.
