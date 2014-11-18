@@ -1,28 +1,46 @@
-angular.module('NoiseTwitter', []);
+angular.module('NoiseTwitter', ['ngRoute']);
 
-angular.module('NoiseTwitter').controller('MainController', function ($scope) {
-  $scope.tweets = [
-    {
-      content: 'You give love a bad name.'
-    },
-    {
-      content: 'Old McDonald had a farm.'
-    },
-    {
-      content: "I'm a little teapot, short and stout."
+angular.module('NoiseTwitter').config(function ($routeProvider) {
+  $routeProvider.when('/tweets/:id', {
+    controller: 'TweetController',
+    templateUrl: 'tweet',
+    resolve: {
+      tweet: function ($http, $route) {
+        return $http.get('/tweets/' + $route.current.params.id + '.json');
+      }
     }
-  ];
+  }).otherwise({
+    controller: 'MainController',
+    templateUrl: 'main',
+    resolve: {
+      tweets: function ($http) {
+        return $http.get('/tweets.json');
+      }
+    }
+  });
+}).controller('MainController', function ($scope, $http, tweets) {
+  $scope.tweets = tweets.data;
 
   $scope.addTweet = function () {
-    $scope.tweets.unshift({content: $scope.tweetContent});
+    $http.post('/tweets.json', {content: $scope.tweetContent})
+      .success(function (data) {
+        $scope.tweets.unshift(data);
+        $scope.tweetContent = '';
+      });
   };
 
   $scope.favorite = function (tweet) {
-    tweet.favorited = !tweet.favorited;
+    $http.put('/tweets/' + tweet.id + '.json', {favorited: !tweet.favorited})
+      .success(function (data) {
+        tweet.favorited = data.favorited;
+      });
   }
 
   $scope.retweet = function (tweet) {
-    tweet.retweeted = !tweet.retweeted;
+    $http.put('/tweets/' + tweet.id + '.json', {retweeted: !tweet.retweeted})
+      .success(function (data) {
+        tweet.retweeted = data.retweeted;
+      });
   }
 
   $scope.tweetContent = "";
@@ -33,4 +51,6 @@ angular.module('NoiseTwitter').controller('MainController', function ($scope) {
   $scope.tweetContentInvalid = function () {
     return $scope.tweetContent.length === 0 || $scope.remainingCharacters() < 0;
   }
+}).controller('TweetController', function ($scope, tweet) {
+  $scope.tweet = tweet.data;
 });
