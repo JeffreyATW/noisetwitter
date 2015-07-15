@@ -3,7 +3,6 @@
   <head>
     <title>NoiseTwitter</title>
     <link href="assets/application.css" rel="stylesheet" type="text/css">
-    <script src="assets/angular.js"></script>
   </head>
   <body ng-app="NoiseTwitter" ng-controller="MainController">
     <form class="tweetbox clearfix" ng-submit="addTweet()">
@@ -25,6 +24,6 @@
         <button class="retweet" ng-click="retweet(tweet)">Retweet</button>
       </article>
     </section>
-    <script src="assets/application.js"></script>
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>

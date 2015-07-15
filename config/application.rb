@@ -21,3 +21,7 @@ module Noisetwitter
     # config.i18n.default_locale = :de
   end
 end
+
+Noisetwitter::Application.configure do
+  config.react.addons = true # defaults to false
+end

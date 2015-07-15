@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
@@ -29,6 +30,8 @@ gem 'spring',        group: :development
 gem 'rails-assets-angular', '~> 1.3.0'
 gem 'rails-assets-angular-route', '~> 1.3.0'
 
+gem 'react-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -41,3 +44,7 @@ gem 'rails-assets-angular-route', '~> 1.3.0'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :development do
+  gem 'guard'
+  gem 'guard-livereload', '~> 2.4', require: false
+end
